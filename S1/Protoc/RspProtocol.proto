@@ -1,0 +1,11 @@
+message UserData{
+ required string nick_name = 1;
+ required int64 monney = 2;
+}
+
+enum RspLogIn
+{
+    RSP_ID_FAIL = 0;
+    RSP_PW_FAIL = 1;
+    RSP_LOGIN = 2;
+}
