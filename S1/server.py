@@ -78,6 +78,7 @@ def join():
 
 @app.route('/batting_start', methods=['POST'])
 def batting_start():
+    db_manager.db_flush()
     username = get_data('username')
     batting_money = get_data('money')
 
