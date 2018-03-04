@@ -1,6 +1,7 @@
 #-*- coding: utf-8 -*-
 
 from flask import Flask, request, jsonify
+import random
 
 import db_manager
 import models
@@ -30,11 +31,79 @@ def login():
     _user = db_manager.query(User).filter(User.username == username, User.password == password).first()
 
     rsp_data = {}
-    rsp_data['aaa'] = 'bb'
 
     if _user is None:
+        rsp_data['result'] = 'failed'
+    else:
+        rsp_data['result'] = 'succes'
+        rsp_data['money'] = _user.money;
+        rsp_data['username'] = _user.username;
+
+    return jsonify(rsp_data)
+
+
+@app.route('/join', methods=['POST'])
+def join():
+    username = get_data('username')
+    password = get_data('password')
+
+    rsp_data = {}
+    rsp_data['result'] = 'succes'
+
+    if username is None or len(username) == 0:
         return jsonify(rsp_data)
-    return 'bb'
+
+    if password is None or len(password) == 0:
+        return jsonify(rsp_data)
+
+    _user = db_manager.query(User).filter(User.username == username).first()
+
+    if _user is None:
+        rsp_data['result'] = 'succes'
+        _user = User()
+        _user.username = username
+        _user.password = password
+        _user.money = 50000
+        db_manager.db_session.add(_user)
+        db_manager.db_commit()
+        rsp_data['money'] = _user.money
+        rsp_data['username'] = username
+        rsp_data['password'] = password
+
+    else:
+        rsp_data['result'] = 'failed'
+
+    return jsonify(rsp_data)
+
+
+@app.route('/batting_start', methods=['POST'])
+def batting_start():
+    username = get_data('username')
+    batting_money = get_data('money')
+
+    _user = db_manager.query(User).filter(User.username == username).first()
+
+    if _user is None:
+        return "user is none"
+
+
+    master_num = random.randrange(1, 100)
+    user_num = random.randrange(1, 100)
+                        
+    rsp_data = {}
+    rsp_data['master_num'] = master_num
+    rsp_data['user_num'] = user_num
+
+    if master_num < user_num:
+        _user.money = _user.money + int(batting_money)
+        rsp_data['result'] = 'succes'
+    else:
+        _user.money = _user.money - int(batting_money)
+        rsp_data['result'] = 'failed'
+
+    db_manager.db_commit()
+    rsp_data['money'] = _user.money
+    return jsonify(rsp_data)
 
 
 def get_data(jsonkey):
