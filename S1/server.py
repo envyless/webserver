@@ -19,7 +19,7 @@ number = 0
 def hello_world():
     # add to entry
     #db_manager.db_delete()
-    return 'hello'
+    return 'helloww'
 
 
 @app.route('/login', methods=['POST'])
