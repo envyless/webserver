@@ -4,16 +4,6 @@ from database import db_session
 def query(_type):
     return db_session.query(_type)
 
-def add_entry(datetime, string):
-    t = TbTest(datetime, string)
-    db_session.add(t)
-    db_session.commit()
-
-
-def delete_entry(datetime, string):
-    db_session.query(TbTest).filter(TbTest.datetime == datetime, TbTest.string == string).delete()
-    db_session.commit()
-
 
 def update_entry():
     db_session.flush()
