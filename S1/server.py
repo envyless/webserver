@@ -38,8 +38,8 @@ def login():
         rsp_data['result'] = 'succes'
         rsp_data['money'] = _user.money;
         rsp_data['username'] = _user.username;
+        print "monsey : ", _user.money
 
-    print "monsey : ", _user.money
 
     return jsonify(rsp_data)
 
@@ -82,6 +82,9 @@ def join():
 def batting_start():
     username = get_data('username')
     batting_money = get_data('money')
+
+    if(batting_money is None)
+        return "no money"
 
     _user = db_manager.query(User).filter(User.username == username).first()
 
