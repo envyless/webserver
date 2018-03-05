@@ -50,13 +50,13 @@ def join():
     password = get_data('password')
 
     rsp_data = {}
-    rsp_data['result'] = 'succes'
-
     if username is None or len(username) == 0:
         return jsonify(rsp_data)
 
     if password is None or len(password) == 0:
         return jsonify(rsp_data)
+
+    rsp_data['result'] = 'succes'
 
     _user = db_manager.query(User).filter(User.username == username).first()
 
