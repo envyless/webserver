@@ -83,7 +83,7 @@ def batting_start():
     username = get_data('username')
     batting_money = get_data('money')
 
-    if(batting_money is None)
+    if batting_money is None:
         return "no money"
 
     _user = db_manager.query(User).filter(User.username == username).first()
