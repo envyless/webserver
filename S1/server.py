@@ -80,7 +80,6 @@ def join():
 
 @app.route('/batting_start', methods=['POST'])
 def batting_start():
-    db_manager.db_flush()
     username = get_data('username')
     batting_money = get_data('money')
 
@@ -88,7 +87,6 @@ def batting_start():
 
     if _user is None:
         return "user is none"
-
 
     master_num = random.randrange(1, 100)
     user_num = random.randrange(1, 100)
@@ -107,7 +105,6 @@ def batting_start():
         rsp_data['result'] = 'failed'
 
     print "new money : ", _user.money
-
     
     #db_manager.db_commit()
     rsp_data['money'] = _user.money
