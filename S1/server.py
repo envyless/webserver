@@ -25,6 +25,7 @@ def hello_world():
 
 @app.route('/login', methods=['POST'])
 def login():
+    db_manager.db_flush()
     username = get_data('username')
     password = get_data('password')
 
@@ -40,7 +41,7 @@ def login():
         rsp_data['username'] = _user.username;
         print "monsey : ", _user.money
 
-
+    db_manager.db_flush()
     return jsonify(rsp_data)
 
 
@@ -80,6 +81,7 @@ def join():
 
 @app.route('/batting_start', methods=['POST'])
 def batting_start():
+    db_manager.db_flush()
     username = get_data('username')
     batting_money = get_data('money')
 
