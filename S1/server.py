@@ -39,6 +39,8 @@ def login():
         rsp_data['money'] = _user.money;
         rsp_data['username'] = _user.username;
 
+    print "monsey : ", _user.money
+
     return jsonify(rsp_data)
 
 
@@ -95,6 +97,8 @@ def batting_start():
     rsp_data['master_num'] = master_num
     rsp_data['user_num'] = user_num
 
+    print "old money : ", _user.money 
+
     if master_num < user_num:
         _user.money = _user.money + int(batting_money)
         rsp_data['result'] = 'succes'
@@ -102,8 +106,12 @@ def batting_start():
         _user.money = _user.money - int(batting_money)
         rsp_data['result'] = 'failed'
 
-    db_manager.db_commit()
+    print "new money : ", _user.money
+
+    
+    #db_manager.db_commit()
     rsp_data['money'] = _user.money
+    db_manager.db_commit()
     return jsonify(rsp_data)
 
 
