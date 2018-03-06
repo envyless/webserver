@@ -1,16 +1,16 @@
-from database import Session
+from database import db_session
 
 scoped_session = None
 def query(_type):
-    if scoped_session is None:
+    if db_session is None:
         return None
-    return scoped_session.query(_type)
+    return db_session.query(_type)
 
 
 def update_entry():
-    if scoped_session is None:
+    if db_session is None:
         return
-    scoped_session.flush()
+    db_session.flush()
 
 
 # def db_delete():
@@ -23,31 +23,28 @@ def update_entry():
 
 
 def db_commit():
-    if scoped_session is None:
+    if db_session is None:
         return
-    scoped_session.commit()
+    db_session.commit()
 
 
 def db_flush():
-    if scoped_session is None:
+    if db_session is None:
         return
-    scoped_session.flush()
+    db_session.flush()
 
 
 def session_close():
-    if scoped_session is None:
+    if db_session is None:
         return
-    scoped_session.close()
+    db_session.close()
 
 
 def after_request():
-    global scoped_session
-    scoped_session.expire_all()
+    db_session.flush()
 
 
 def before_request():
-    global scoped_session
-    if scoped_session is None:
-        scoped_session = Session()
+    db_session.flush()
 
 

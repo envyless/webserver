@@ -9,7 +9,6 @@ from datetime import datetime
 # proto
 from Protoc import RspProtocol_pb2
 from models import *
-from database import Session
 
 #routes를 모아놓은 server.py
 
@@ -64,7 +63,7 @@ def join():
         _user.username = username
         _user.password = password
         _user.money = 50000
-        db_manager.Session().add(_user)
+        db_manager.db_session.add(_user)
         db_manager.db_commit()
         rsp_data['money'] = _user.money
         rsp_data['username'] = username
