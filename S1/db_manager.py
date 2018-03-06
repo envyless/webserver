@@ -34,7 +34,7 @@ def db_flush():
     scoped_session.flush()
 
 
-def main():
+def session_close():
     if scoped_session is None:
         return
     scoped_session.close()
@@ -42,12 +42,12 @@ def main():
 
 def after_request():
     global scoped_session
-    if scoped_session is not None:
-        scoped_session.close()
+    scoped_session.expire_all()
 
 
 def before_request():
     global scoped_session
-    scoped_session = Session()
+    if scoped_session is None:
+        scoped_session = Session()
 
 
