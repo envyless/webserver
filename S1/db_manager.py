@@ -1,5 +1,4 @@
 from database import Session
-from server import app
 
 scoped_session = None
 def query(_type):
