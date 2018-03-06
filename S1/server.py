@@ -2,7 +2,6 @@
 
 from flask import Flask, request, jsonify
 import random
-
 import db_manager
 import models
 from datetime import datetime
@@ -10,6 +9,7 @@ from datetime import datetime
 # proto
 from Protoc import RspProtocol_pb2
 from models import *
+from database import Session
 
 #routes를 모아놓은 server.py
 
@@ -116,6 +116,17 @@ def batting_start():
 
 def get_data(jsonkey):
     return request.form[jsonkey]
+
+
+@app.after_request
+def after_request(response):
+    db_manager.after_request()
+    return response
+
+
+@app.before_request
+def before_request():
+    db_manager.before_request()
 
 
 if __name__ == '__main__':
