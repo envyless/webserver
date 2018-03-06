@@ -15,6 +15,10 @@ from models import *
 
 app = Flask(__name__)
 number = 0
+@app.route('/testing')
+def testing():
+    _user = db_manager.query(User).filter(User.username == username, User.password == password).first()
+    return 'yee'
 
 @app.route('/')
 def hello_world():
@@ -25,7 +29,6 @@ def hello_world():
 
 @app.route('/login', methods=['POST'])
 def login():
-    db_manager.db_flush()
     username = get_data('username')
     password = get_data('password')
 
