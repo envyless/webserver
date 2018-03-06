@@ -119,13 +119,8 @@ def get_data(jsonkey):
 
 @app.after_request
 def after_request(response):
-    db_manager.after_request()
+    db_manager.db_commit()
     return response
-
-
-@app.before_request
-def before_request():
-    db_manager.before_request()
 
 
 if __name__ == '__main__':
