@@ -118,17 +118,6 @@ def get_data(jsonkey):
     return request.form[jsonkey]
 
 
-@app.after_request
-def after_request(response):
-    db_manager.after_request()
-    return response
-
-
-@app.before_request
-def before_request():
-    db_manager.before_request()
-
-
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
 
