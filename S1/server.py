@@ -15,16 +15,10 @@ from models import *
 
 app = Flask(__name__)
 number = 0
-@app.route('/testing')
-def testing():
-    _user = db_manager.query(User).filter(User.username == username, User.password == password).first()
-    return 'yee'
 
 @app.route('/')
 def hello_world():
-    # add to entry
-    #db_manager.db_delete()
-    return 'helloww'
+    return 'hello'
 
 
 @app.route('/login', methods=['POST'])
@@ -70,7 +64,7 @@ def join():
         _user.username = username
         _user.password = password
         _user.money = 50000
-        db_manager.db_session.add(_user)
+        db_manager.Session().add(_user)
         db_manager.db_commit()
         rsp_data['money'] = _user.money
         rsp_data['username'] = username

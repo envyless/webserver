@@ -1,12 +1,12 @@
-from database import db_session
+from database import Session
 
 
 def query(_type):
-    return db_session.query(_type)
+    return Session().query(_type)
 
 
 def update_entry():
-    db_session.flush()
+    Session().flush()
 
 
 # def db_delete():
@@ -19,12 +19,12 @@ def update_entry():
 
 
 def db_commit():
-    db_session.commit()
+    Session().commit()
 
 
 def db_flush():
-    db_session.flush()
+    Session().flush()
 
 
 def main():
-    db_session.close()
+    Session().close()
