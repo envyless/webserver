@@ -41,14 +41,12 @@ def main():
 
 
 def after_request():
-    print 'after_request'
     global scoped_session
     if scoped_session is not None:
         scoped_session.close()
 
 
 def before_request():
-    print 'before_request'
     global scoped_session
     scoped_session = Session()
 
