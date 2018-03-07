@@ -3,6 +3,7 @@
 from flask import Flask, request, jsonify
 import random
 import db_manager
+from database import db_session
 import models
 from datetime import datetime
 
@@ -119,8 +120,12 @@ def get_data(jsonkey):
 
 @app.after_request
 def after_request(response):
-    db_manager.db_commit()
     return response
+
+
+@app.teardown_appcontext
+def shutdown_session(exception=None):
+    db_session.remove()
 
 
 if __name__ == '__main__':
